@@ -1,0 +1,3 @@
+entity-packages: cc.shallow.sbebean.domain
+transactional-packages: cc.shallow.sbebean.diabetes
+querybean-packages: cc.shallow.sbebean.domain

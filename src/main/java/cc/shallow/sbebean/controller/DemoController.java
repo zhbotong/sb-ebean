@@ -10,14 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-
-    @RequestMapping("/error")
-    public Demo test(@RequestBody Demo demo, RequestPage requestPage){
-        System.out.println(JSON.toJSONString(requestPage));
-        int i = 1 / 0;
-        return demo;
-    }
-
     @RequestMapping("/demo")
     public Demo demo(@RequestBody Demo demo, RequestPage requestPage){
         System.out.println(JSON.toJSONString(requestPage));

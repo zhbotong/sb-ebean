@@ -13,6 +13,9 @@ package cc.shallow.sbebean.utils.json;
 
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -267,6 +270,38 @@ public class JsonObject implements Iterable<Map.Entry<String, Object>>{
     }
 
     /**
+     * Get the LocalDateTime
+     * @param key  the key to return the value for
+     * @return the value or null if no value for that key
+     */
+    public LocalDateTime getLocalDateTime(String key){
+        Objects.requireNonNull(key);
+        LocalDateTime encoded = (LocalDateTime) map.get(key);
+        return encoded;
+    }
+
+    /**
+     * Get the LocalDate
+     * @param key  the key to return the value for
+     * @return the value or null if no value for that key
+     */
+    public LocalDate getLocalDate(String key){
+        Objects.requireNonNull(key);
+        LocalDate encoded = (LocalDate) map.get(key);
+        return encoded;
+    }
+
+    /**
+     * Get the LocalDate
+     * @param key  the key to return the value for
+     * @return the value or null if no value for that key
+     */
+    public LocalTime getLocalTime(String key){
+        Objects.requireNonNull(key);
+        LocalTime encoded = (LocalTime) map.get(key);
+        return encoded;
+    }
+    /**
      * Get the value with the specified key, as an Object
      * @param key  the key to lookup
      * @return the value
@@ -487,7 +522,7 @@ public class JsonObject implements Iterable<Map.Entry<String, Object>>{
     /**
      * Put an Enum into the JSON object with the specified key.
      * <p>
-     * JSON has no concept of encoding Enums, so the Enum will be converted to a String using the {@link java.lang.Enum#name}
+     * JSON has no concept of encoding Enums, so the Enum will be converted to a String using the {@link java.lang.Enum#'name'}
      * method and the value put as a String.
      *
      * @param key  the key

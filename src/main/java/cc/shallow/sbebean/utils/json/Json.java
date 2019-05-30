@@ -15,6 +15,9 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -103,6 +106,12 @@ public class Json {
             // OK
         } else if (val instanceof Character) {
             // OK
+        }else if (val instanceof LocalDateTime){
+            //OK
+        }else if (val instanceof LocalDate){
+            //OK
+        }else if (val instanceof LocalTime){
+            //OK
         } else if (val instanceof CharSequence) {
             val = val.toString();
         } else if (val instanceof JsonObject) {

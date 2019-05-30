@@ -1,7 +1,7 @@
 package cc.shallow.sbebean.controller;
 
-import com.alibaba.fastjson.JSON;
 import cc.shallow.sbebean.domain.param.RequestPage;
+import cc.shallow.sbebean.utils.json.Json;
 import lombok.Data;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ public class DemoController {
 
     @RequestMapping("/demo")
     public Demo demo(@RequestBody Demo demo, RequestPage requestPage){
-        System.out.println(JSON.toJSONString(requestPage));
+        System.out.println(Json.encode(requestPage));
         return demo;
     }
 }

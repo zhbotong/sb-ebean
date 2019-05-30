@@ -1,6 +1,6 @@
 package cc.shallow.sbebean.aop;
 
-import com.alibaba.fastjson.JSON;
+import cc.shallow.sbebean.utils.json.Json;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Component
 @Slf4j
 public class WebAcpect {
-    @Pointcut("execution(* com.phoebusmed.diabetes.controller.**.*(..))")
+    @Pointcut("execution(* cc.shallow.sbebean.controller.**.*(..))")
     public void pointcut(){}
 
     /**
@@ -30,7 +30,7 @@ public class WebAcpect {
         String queryString = request.getQueryString();
         String requestURI = request.getRequestURI();
         String ip = request.getRemoteAddr();
-        String requestParam = JSON.toJSONString(point.getArgs());
+        String requestParam = Json.encode(point.getArgs());
         log.info("requestParam:"+requestParam);
         log.info("token:"+token);
         log.info(queryString);
@@ -47,6 +47,6 @@ public class WebAcpect {
     @AfterReturning(value = "pointcut()",returning = "result")
     public void responseLog(JoinPoint point,Object result){
         log.info("response time:"+LocalDateTime.now());
-        log.info("response result:"+JSON.toJSONString(result));
+        log.info("response result:"+Json.encode(result));
     }
 }

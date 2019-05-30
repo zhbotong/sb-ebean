@@ -24,6 +24,12 @@ config-WebConfig:拦截器、跨域、请求响应参数格式化等等
 
 interceptor-AuthHandlerInterceptor: 认证拦截器
 
+domain-param-RequestPage 分页参数
+
+domain-ResponseResult 统一返回结果
+
+utils-json vertx-core json utils
+
 
 ## 配置文件
 ebean.mf:ebean 包扫描

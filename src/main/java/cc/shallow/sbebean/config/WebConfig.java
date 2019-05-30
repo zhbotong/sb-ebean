@@ -1,6 +1,10 @@
 package cc.shallow.sbebean.config;
 
 import cc.shallow.sbebean.interceptor.AuthHandlerInterceptor;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,13 +16,22 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
+
+    private static String DATETIME_FORMART = "yyyy-MM-dd HH:mm:ss";
+
+    private static String DATE_FORMART = "yyyy-MM-dd";
+
+    private static String TIME_FORMART = "HH:mm:ss";
 
     /**
      * 拦截器
@@ -40,10 +53,16 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class,new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATETIME_FORMART)));
+        javaTimeModule.addSerializer(LocalDate.class,new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_FORMART)));
+        javaTimeModule.addSerializer(LocalTime.class,new LocalTimeSerializer(DateTimeFormatter.ofPattern(TIME_FORMART)));
+
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
                 .indentOutput(true)
-                .dateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
-                .modulesToInstall(new ParameterNamesModule());
+                .simpleDateFormat(DATETIME_FORMART)
+                .modulesToInstall(new ParameterNamesModule())
+                .modulesToInstall(javaTimeModule);
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
     }
 

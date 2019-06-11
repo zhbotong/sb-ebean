@@ -15,7 +15,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'io.ebean'
 apply plugin: 'idea'
 
-group = 'com.phoebusmed'
+group = 'cc.shallow.sbebean'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '12'
 

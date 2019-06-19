@@ -138,9 +138,9 @@ public class Json {
             val = Base64.getEncoder().encodeToString((byte[])val);
         } else if (val instanceof Instant) {
             val = ISO_INSTANT.format((Instant) val);
-        } else {
+        } /*else {
             throw new IllegalStateException("Illegal type in JsonObject: " + val.getClass());
-        }
+        }*/
         return val;
     }
 

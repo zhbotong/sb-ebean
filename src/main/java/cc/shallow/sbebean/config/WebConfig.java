@@ -1,6 +1,10 @@
 package cc.shallow.sbebean.config;
 
 import cc.shallow.sbebean.interceptor.AuthHandlerInterceptor;
+import cc.shallow.sbebean.utils.json.Json;
+import cc.shallow.sbebean.utils.json.JsonArray;
+import cc.shallow.sbebean.utils.json.JsonObject;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -57,7 +61,10 @@ public class WebConfig implements WebMvcConfigurer {
         javaTimeModule.addSerializer(LocalDateTime.class,new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATETIME_FORMART)));
         javaTimeModule.addSerializer(LocalDate.class,new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_FORMART)));
         javaTimeModule.addSerializer(LocalTime.class,new LocalTimeSerializer(DateTimeFormatter.ofPattern(TIME_FORMART)));
-
+        SimpleModule module = new SimpleModule();
+        // custom types
+        module.addSerializer(JsonObject.class, new Json.JsonObjectSerializer());
+        module.addSerializer(JsonArray.class, new Json.JsonArraySerializer());
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
                 .indentOutput(true)
                 .simpleDateFormat(DATETIME_FORMART)

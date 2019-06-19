@@ -144,14 +144,14 @@ public class Json {
         return val;
     }
 
-    private static class JsonObjectSerializer extends JsonSerializer<JsonObject> {
+    public static class JsonObjectSerializer extends JsonSerializer<JsonObject> {
         @Override
         public void serialize(JsonObject value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
             jgen.writeObject(value.getMap());
         }
     }
 
-    private static class JsonArraySerializer extends JsonSerializer<JsonArray> {
+    public static class JsonArraySerializer extends JsonSerializer<JsonArray> {
         @Override
         public void serialize(JsonArray value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
             jgen.writeObject(value.getList());

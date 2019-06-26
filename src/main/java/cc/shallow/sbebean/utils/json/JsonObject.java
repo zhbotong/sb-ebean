@@ -704,7 +704,6 @@ public class JsonObject implements Iterable<Map.Entry<String, Object>>{
      */
     public JsonObject put(String key, Object value) {
         Objects.requireNonNull(key);
-        value = Json.checkAndCopy(value, false);
         map.put(key, value);
         return this;
     }
@@ -816,7 +815,6 @@ public class JsonObject implements Iterable<Map.Entry<String, Object>>{
         }
         for (Map.Entry<String, Object> entry: map.entrySet()) {
             Object val = entry.getValue();
-            val = Json.checkAndCopy(val, true);
             copiedMap.put(entry.getKey(), val);
         }
         return new JsonObject(copiedMap);

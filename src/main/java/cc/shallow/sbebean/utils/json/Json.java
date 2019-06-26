@@ -108,56 +108,6 @@ public class Json {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    static Object checkAndCopy(Object val, boolean copy) {
-        if (val == null) {
-            // OK
-        } else if (val instanceof Number && !(val instanceof BigDecimal)) {
-            // OK
-        } else if (val instanceof Boolean) {
-            // OK
-        } else if (val instanceof String) {
-            // OK
-        } else if (val instanceof Character) {
-            // OK
-        }else if (val instanceof LocalDateTime){
-            //OK
-        }else if (val instanceof LocalDate){
-            //OK
-        }else if (val instanceof LocalTime){
-            //OK
-        } else if (val instanceof CharSequence) {
-            val = val.toString();
-        } else if (val instanceof JsonObject) {
-            if (copy) {
-                val = ((JsonObject) val).copy();
-            }
-        } else if (val instanceof JsonArray) {
-            if (copy) {
-                val = ((JsonArray) val).copy();
-            }
-        } else if (val instanceof Map) {
-            if (copy) {
-                val = (new JsonObject((Map)val)).copy();
-            } else {
-                val = new JsonObject((Map)val);
-            }
-        } else if (val instanceof List) {
-            if (copy) {
-                val = (new JsonArray((List)val)).copy();
-            } else {
-                val = new JsonArray((List)val);
-            }
-        } else if (val instanceof byte[]) {
-            val = Base64.getEncoder().encodeToString((byte[])val);
-        } else if (val instanceof Instant) {
-            val = ISO_INSTANT.format((Instant) val);
-        } /*else {
-            throw new IllegalStateException("Illegal type in JsonObject: " + val.getClass());
-        }*/
-        return val;
-    }
-
     public static class JsonObjectSerializer extends JsonSerializer<JsonObject> {
         @Override
         public void serialize(JsonObject value, JsonGenerator jgen, SerializerProvider provider) throws IOException {

@@ -413,7 +413,6 @@ public class JsonArray implements Iterable<Object>{
    * @return  a reference to this, so the API can be used fluently
    */
   public JsonArray add(Object value) {
-    value = Json.checkAndCopy(value, false);
     list.add(value);
     return this;
   }
@@ -543,7 +542,6 @@ public class JsonArray implements Iterable<Object>{
   public JsonArray copy() {
     List<Object> copiedList = new ArrayList<>(list.size());
     for (Object val: list) {
-      val = Json.checkAndCopy(val, true);
       copiedList.add(val);
     }
     return new JsonArray(copiedList);

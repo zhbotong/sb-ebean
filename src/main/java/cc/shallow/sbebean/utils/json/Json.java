@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import java.io.IOException;
@@ -18,6 +21,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -31,6 +35,12 @@ public class Json {
     public static ObjectMapper mapper = new ObjectMapper();
     public static ObjectMapper prettyMapper = new ObjectMapper();
 
+    private static String DATETIME_FORMART = "yyyy-MM-dd HH:mm:ss";
+
+    private static String DATE_FORMART = "yyyy-MM-dd";
+
+    private static String TIME_FORMART = "HH:mm:ss";
+
     static {
         // Non-standard json but we allow C style comments in our json
         mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
@@ -40,10 +50,14 @@ public class Json {
         // custom types
         module.addSerializer(JsonObject.class, new JsonObjectSerializer());
         module.addSerializer(JsonArray.class, new JsonArraySerializer());
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class,new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATETIME_FORMART)));
+        javaTimeModule.addSerializer(LocalDate.class,new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_FORMART)));
+        javaTimeModule.addSerializer(LocalTime.class,new LocalTimeSerializer(DateTimeFormatter.ofPattern(TIME_FORMART)));
         List<Module> moduleList = Arrays.asList(module,
                 new ParameterNamesModule(),
                 new Jdk8Module(),
-                new JavaTimeModule());
+                javaTimeModule);
         mapper.registerModules(moduleList);
         prettyMapper.registerModules(moduleList);
     }

@@ -1,0 +1,32 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: io.ebean:ebean
+    versions:
+    - 12.6.6
+    - 12.6.7
+    - 12.7.1
+    - 12.7.2
+    - 12.8.0
+    - 12.8.1
+    - 12.8.2
+  - dependency-name: io.ebean:ebean-querybean
+    versions:
+    - 12.6.6
+    - 12.6.7
+    - 12.7.1
+    - 12.7.2
+    - 12.8.0
+    - 12.8.1
+    - 12.8.2
+  - dependency-name: org.springframework.boot
+    versions:
+    - 2.4.2
+    - 2.4.3
+    - 2.4.4
